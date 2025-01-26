@@ -1,0 +1,91 @@
+body {
+margin: 0;
+font-family: 'Poppins', sans-serif;
+width: 100%;
+/* display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh; */
+
+}
+
+.hero-section {
+text-align: center;
+background: #ffffff;
+border-radius: 12px;
+margin: auto;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+flex-direction: column;
+}
+
+.title {
+margin-top: 20px;
+margin-left: 10px;
+font-size: 3rem;
+font-weight: bold;
+color: #4caf50;
+margin-bottom: 10px;
+}
+
+.tagline {
+font-size: 1.5rem;
+color: #555;
+margin-bottom: 20px;
+}
+
+.instructions {
+font-size: 1rem;
+color: #666;
+margin-bottom: 20px;
+}
+
+.input-group {
+display: flex;
+width: 80%;
+margin-left: auto;
+margin-right: auto;
+flex-direction: column;
+gap: 15px;
+margin-bottom: 15px;
+}
+
+.input {
+padding: 10px;
+font-size: 1rem;
+border: 1px solid #ddd;
+border-radius: 8px;
+width: 100%;
+}
+
+.input:focus {
+outline: none;
+border-color: #4caf50;
+box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.button {
+padding: 18px 30px;
+font-size: 1rem;
+color: white;
+background-color: #4caf50;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.9s ease, transform 1.0s ease;
+}
+
+
+.button:hover {
+background-color: #45a049;
+transform: scale(1.05);
+}
+
+.message {
+font-size: 1rem;
+color: #555;
+margin-top: 20px;
+}
