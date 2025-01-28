@@ -2,11 +2,6 @@ body {
 margin: 0;
 font-family: 'Poppins', sans-serif;
 width: 100%;
-/* display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh; */
-
 }
 
 .hero-section {
@@ -89,3 +84,5 @@ font-size: 1rem;
 color: #555;
 margin-top: 20px;
 }
+
+

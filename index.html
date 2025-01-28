@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1 class="title">PiggyPal</h1>
-    <div class="hero-section">
+    <div class="hero-section" id="hero">
         <h2 class="tagline">Save money, save the world with <span>SOALA</span> </h2>
         <p class="instructions">Enter your name and the amount you want to save</p>
         <div class="input-group">
@@ -17,6 +17,12 @@
         </div>
         <button id="save" class="button">Save</button>
         <p id="message" class="message"></p>
+    </div>
+    <div class="account-section">
+        <p>Hi, <span id="personName"></span></p>
+        <p class="balance">Account Balance: <span id="accountAmount"></span></p>
+        <button id="withdraw">Withdraw</button>
+        <button id="deposit">Deposit</button>
     </div>
       
 <script src="index.js"></script>
