@@ -85,4 +85,6 @@ color: #555;
 margin-top: 20px;
 }
 
-
+.account-section{
+    display: none;
+}
