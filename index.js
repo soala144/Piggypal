@@ -23,8 +23,8 @@
 const btn = document.getElementById("save");
 btn.addEventListener("click", () => {
     // Get input values
-    const personName = document.getElementById("name").value.trim(); // Ensure no leading/trailing spaces
-    const personAmount = document.getElementById("amount").value.trim(); // Get amount as a string for validation
+    const personName = document.getElementById("name").value.trim(); // Ensure no leading trailing space
+    const personAmount = document.getElementById("amount").value; 
     const heroSection = document.getElementById("hero");
     const message = document.getElementById("message");
 
@@ -36,10 +36,9 @@ btn.addEventListener("click", () => {
     }
 
     // Parse the amount as a number
-    const parsedAmount = parseFloat(personAmount);
 
     // Check if the amount is valid (number and greater than 0)
-    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+    if (isNaN(personAmount) || personAmount <= 0) {
         message.innerText = "Please enter a valid saving amount greater than 0.";
         message.style.color = "red";
         return; // Exit the function early if validation fails
@@ -47,6 +46,8 @@ btn.addEventListener("click", () => {
 
     // If all validations pass
     heroSection.style.display = "none"; // Hide the hero section
-    message.innerText = `Thank you, ${personName}! Your saving goal of ₦${parsedAmount} has been set!`;
+    message.innerText = `Thank you, ${personName}! Your saving goal of ₦${personAmount} has been set!`;
+    console.log(personAmount)
+    console.log(personName)
     message.style.color = "green";
 });
