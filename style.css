@@ -1,94 +1,183 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-margin: 0;
-font-family: 'Poppins', sans-serif;
-width: 100%;
+    background-color: #0a192f;
+    color: #e0e7ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
 }
 
-.hero-section {
-text-align: center;
-background: #ffffff;
-border-radius: 12px;
-margin: auto;
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-flex-direction: column;
-}
-
+/* Title */
 .title {
-margin-top: 20px;
-margin-left: 10px;
-font-size: 3rem;
-font-weight: bold;
-color: #4caf50;
-margin-bottom: 10px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4c9aff;
+    text-align: center;
+}
+
+/* Hero Section */
+.hero-section {
+    background: #112240;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
 }
 
 .tagline {
-font-size: 1.5rem;
-color: #555;
-margin-bottom: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
 .instructions {
-font-size: 1rem;
-color: #666;
-margin-bottom: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    color: #9aa6c8;
 }
 
 .input-group {
-display: flex;
-width: 80%;
-margin-left: auto;
-margin-right: auto;
-flex-direction: column;
-gap: 15px;
-margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
+/* Input Fields */
 .input {
-padding: 10px;
-font-size: 1rem;
-border: 1px solid #ddd;
-border-radius: 8px;
-width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    background: #1b2a49;
+    color: #fff;
 }
 
-.input:focus {
-outline: none;
-border-color: #4caf50;
-box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+.input::placeholder {
+    color: #b0b8d4;
 }
 
+/* Buttons */
 .button {
-padding: 18px 30px;
-font-size: 1rem;
-color: white;
-background-color: #4caf50;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-transition: background-color 0.9s ease, transform 1.0s ease;
+    background: #4c9aff;
+    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
 }
-
 
 .button:hover {
-background-color: #45a049;
-transform: scale(1.05);
+    background: #2b7cd9;
 }
 
+/* Message */
 .message {
-font-size: 1rem;
-color: #555;
-margin-top: 20px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #ff4d4d;
 }
 
-.account-section{
+/* Account Section */
+.account-section {
+    background: #112240;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
     display: none;
 }
 
-.action{
+.balance {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Action Buttons */
+#withdraw, #deposit {
+    background: #ff4d4d;
+    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 48%;
+}
+
+#deposit {
+    background: #4caf50;
+}
+
+#withdraw:hover {
+    background: #d73a3a;
+}
+
+#deposit:hover {
+    background: #3d8f40;
+}
+
+/* Transaction Section */
+.action {
     display: none;
+    margin-top: 15px;
+}
+
+#input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    background: #1b2a49;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#what {
+    background: #ffa500;
+    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+#what:hover {
+    background: #d48900;
+}
+
+/* Error Messages */
+#error-message {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+.buttons{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
 }

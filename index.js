@@ -1,100 +1,124 @@
-const account = {
-    name: "",
-    balance: 0
+// Initialize account from local storage or set default values
+const account = JSON.parse(localStorage.getItem("account")) || { name: "", balance: 0 };
+
+// Function to save account data to local storage
+function saveToLocalStorage() {
+    localStorage.setItem("account", JSON.stringify(account));
 }
-const btn = document.getElementById("save");
-btn.addEventListener("click", () => {
-    // Get input values
-    const personName = document.getElementById("name").value.trim(); // Ensure no leading trailing space
-    const personAmount = document.getElementById("amount").value; 
-    const heroSection = document.getElementById("hero");
-    const message = document.getElementById("message");
 
-    // Check for empty fields
-    if (personName === "" || personAmount === "") {
-        message.innerText = "Please fill in all fields.";
-        message.style.color = "red";
-        return; // Exit the function early if validation fails
+// Function to update balance display
+function updateBalanceDisplay() {
+    document.getElementById("accountAmount").innerHTML = `₦${account.balance}`;
+}
+
+// Load stored data when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+    if (account.name) {
+        document.getElementById("personName").innerText = account.name;
+        document.getElementById("account-section").style.display = "block";
+        document.getElementById("hero").style.display = "none";
+        updateBalanceDisplay();
     }
-    account.name = personName
-    account.balance = personAmount
-
-    // Parse the amount as a number
-
-    // Check if the amount is valid (number and greater than 0)
-    if (isNaN(personAmount) || personAmount <= 0) {
-        message.innerText = "Please enter ₦ a valid saving amount greater than 0.";
-        message.style.color = "red";
-        return; // Exit the function early if validation fails
-    }
-
-    // If all validations pass\
-    heroSection.style.display = "none"
-    const accountSection = document.getElementById("account-section")
-    accountSection.style.display = "block"
-    const accountName = document.getElementById("personName")
-    updateBalanceDisplay()
-    accountName.innerHTML = account.name
-    console.log(personAmount)
-    console.log(personName)
-    message.style.color = "green";
 });
 
-function updateBalanceDisplay(){
-    document.getElementById("accountAmount").innerHTML = `₦${account.balance}`
+// For saving user details
+document.getElementById("save").addEventListener("click", () => {
+    const personName = document.getElementById("name").value.trim();
+    const personAmount = Number(document.getElementById("amount").value.trim());
+    const message = document.getElementById("message");
+
+    if (personName === "" || isNaN(personAmount) || personAmount <= 0) {
+        message.innerText = "Please enter a valid name and amount greater than 0.";
+        message.style.color = "red";
+        return;
+    }
+
+    account.name = personName;
+    account.balance = personAmount;
+    saveToLocalStorage();
+
+    document.getElementById("hero").style.display = "none";
+    document.getElementById("account-section").style.display = "block";
+    document.getElementById("personName").innerText = account.name;
+    updateBalanceDisplay();
+    message.innerText = "";
+});
+
+// Function to show error messages
+function showError(message) {
+    let errorMessage = document.getElementById("error-message");
+    if (errorMessage) errorMessage.remove();
+
+    errorMessage = document.createElement("p");
+    errorMessage.id = "error-message";
+    errorMessage.textContent = message;
+    errorMessage.style.color = "red";
+    document.getElementById("action").appendChild(errorMessage);
 }
-// For withdrawal
-const withdrawButton = document.getElementById("withdraw")
-const depositButton = document.getElementById("deposit")
-withdrawButton.addEventListener("click", () =>{
-    const inputSection = document.getElementById("action")
-    const buttonAction = document.getElementById("what")
-    action.style.display = "block"
-    buttonAction.textContent = "Withdraw"
-    withdrawButton.style.display = "none"
-    depositButton.style.display = "none"
-    withdrawButton.disabled = true
-    buttonAction.addEventListener("click", () => {
-        const amountInput = document.getElementById("input")
-       const amount = amountInput.value
-       if(amount > account.balance){
-          const errorMessage = document.createElement("p")
-          errorMessage.textContent = `You this werey you wa withdraw pass expected `
-       }else{
-           account.balance -= amount
-           updateBalanceDisplay()
-       }
-       inputSection.style.display = "none"
-       amountInput.value = ""
-       withdrawButton.disabled = false
-       withdrawButton.style.display = "block"
-      depositButton.style.display = "block"
-    })
-})
+
+// Function to clear input and hide action section
+const buttonContainer = document.getElementById("buttons")
+function resetTransactionUI() {
+    document.getElementById("input").value = "";
+    document.getElementById("action").style.display = "none";
+    buttonContainer.style.display = "block";
+    withdrawButton.disabled = false;
+}
+
+// For Withdrawal
+const withdrawButton = document.getElementById("withdraw");
+withdrawButton.addEventListener("click", () => {
+    document.getElementById("action").style.display = "block";
+    document.getElementById("what").textContent = "Withdraw";
+    buttonContainer.style.display = "none";
+
+    // Remove any previous event listeners to prevent multiple triggers
+    const newWithdrawAction = document.getElementById("what").cloneNode(true);
+    document.getElementById("what").replaceWith(newWithdrawAction);
+
+    newWithdrawAction.addEventListener("click", () => {
+        const amountInput = document.getElementById("input");
+        const amount = Number(amountInput.value.trim());
+
+        if (amount > account.balance) {
+            showError("You cannot withdraw more than your balance.");
+        } else if (amount <= 0) {
+            showError("Enter a valid amount greater than 0.");
+        } else {
+            account.balance -= amount;
+            saveToLocalStorage();
+            updateBalanceDisplay();
+            document.getElementById("error-message")?.remove();
+        }
+
+        resetTransactionUI();
+    });
+});
 
 // For Deposit
-depositButton.addEventListener("click", () =>{
-    const inputSection = document.getElementById("action")
-    const buttonAction = document.getElementById("what")
-    action.style.display = "block"
-    buttonAction.textContent = "Deposit"
-    withdrawButton.style.display = "none"
-    depositButton.style.display = "none"
-    withdrawButton.disabled = true
-    buttonAction.addEventListener("click", () => {
-        const amountInput = document.getElementById("input")
-       const amount = amountInput.value
-       if(amount < 0){
-          const errorMessage = document.createElement("p")
-          errorMessage.textContent = `You can't add any money below 0`
-       }else{
-           account.balance += amount
-           updateBalanceDisplay()
-       }
-      inputSection.style.display = "none"
-       amountInput.value = ""
-       withdrawButton.disabled = false
-       withdrawButton.style.display = "block"
-      depositButton.style.display = "block"
-    })
-})
+const depositButton = document.getElementById("deposit");
+depositButton.addEventListener("click", () => {
+    document.getElementById("action").style.display = "block";
+    document.getElementById("what").textContent = "Deposit";
+    buttonContainer.style.display = "none";
+
+    // Remove any previous event listeners to prevent multiple triggers
+    const newDepositAction = document.getElementById("what").cloneNode(true);
+    document.getElementById("what").replaceWith(newDepositAction);
+
+    newDepositAction.addEventListener("click", () => {
+        const amountInput = document.getElementById("input");
+        const amount = Number(amountInput.value.trim());
+
+        if (amount <= 0) {
+            showError("You can't deposit an amount less than or equal to 0.");
+        } else {
+            account.balance += amount;
+            saveToLocalStorage();
+            updateBalanceDisplay();
+            document.getElementById("error-message")?.remove();
+        }
+
+        resetTransactionUI();
+    });
+});
