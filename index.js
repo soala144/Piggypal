@@ -81,7 +81,7 @@ withdrawButton.addEventListener("click", () => {
         const amount = Number(amountInput.value.trim());
 
         if (amount > account.balance) {
-            showError("You cannot withdraw more than your balance.");
+            showError("Werey your money no reach.");
         } else if (amount <= 0) {
             showError("Enter a valid amount greater than 0.");
         } else {
