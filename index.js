@@ -1,4 +1,7 @@
-let amount = 0
+const account = {
+    name: "",
+    balance: 0
+}
 const btn = document.getElementById("save");
 btn.addEventListener("click", () => {
     // Get input values
@@ -6,7 +9,6 @@ btn.addEventListener("click", () => {
     const personAmount = document.getElementById("amount").value; 
     const heroSection = document.getElementById("hero");
     const message = document.getElementById("message");
-    amount = personAmount
 
     // Check for empty fields
     if (personName === "" || personAmount === "") {
@@ -14,13 +16,8 @@ btn.addEventListener("click", () => {
         message.style.color = "red";
         return; // Exit the function early if validation fails
     }
-
-    
-    let person = {
-        name : personName,
-        money : amount
-    }
-
+    account.name = personName
+    account.balance = personAmount
 
     // Parse the amount as a number
 
@@ -35,16 +32,69 @@ btn.addEventListener("click", () => {
     heroSection.style.display = "none"
     const accountSection = document.getElementById("account-section")
     accountSection.style.display = "block"
-    const accountAmount = document.getElementById("accountAmount")
     const accountName = document.getElementById("personName")
-    accountAmount.innerHTML = `₦${person.money}`
-    accountName.innerHTML = person.name
+    updateBalanceDisplay()
+    accountName.innerHTML = account.name
     console.log(personAmount)
     console.log(personName)
     message.style.color = "green";
 });
+
+function updateBalanceDisplay(){
+    document.getElementById("accountAmount").innerHTML = `₦${account.balance}`
+}
 // For withdrawal
-document.getElementById("withdraw").addEventListener("click", () =>{})
+const withdrawButton = document.getElementById("withdraw")
+const depositButton = document.getElementById("deposit")
+withdrawButton.addEventListener("click", () =>{
+    const inputSection = document.getElementById("action")
+    const buttonAction = document.getElementById("what")
+    action.style.display = "block"
+    buttonAction.textContent = "Withdraw"
+    withdrawButton.style.display = "none"
+    depositButton.style.display = "none"
+    withdrawButton.disabled = true
+    buttonAction.addEventListener("click", () => {
+        const amountInput = document.getElementById("input")
+       const amount = amountInput.value
+       if(amount > account.balance){
+          const errorMessage = document.createElement("p")
+          errorMessage.textContent = `You this werey you wa withdraw pass expected `
+       }else{
+           account.balance -= amount
+           updateBalanceDisplay()
+       }
+       inputSection.style.display = "none"
+       amountInput.value = ""
+       withdrawButton.disabled = false
+       withdrawButton.style.display = "block"
+      depositButton.style.display = "block"
+    })
+})
 
 // For Deposit
-document.getElementById("deposit").addEventListener("click", () =>{})
+depositButton.addEventListener("click", () =>{
+    const inputSection = document.getElementById("action")
+    const buttonAction = document.getElementById("what")
+    action.style.display = "block"
+    buttonAction.textContent = "Deposit"
+    withdrawButton.style.display = "none"
+    depositButton.style.display = "none"
+    withdrawButton.disabled = true
+    buttonAction.addEventListener("click", () => {
+        const amountInput = document.getElementById("input")
+       const amount = amountInput.value
+       if(amount < 0){
+          const errorMessage = document.createElement("p")
+          errorMessage.textContent = `You can't add any money below 0`
+       }else{
+           account.balance += amount
+           updateBalanceDisplay()
+       }
+      inputSection.style.display = "none"
+       amountInput.value = ""
+       withdrawButton.disabled = false
+       withdrawButton.style.display = "block"
+      depositButton.style.display = "block"
+    })
+})
